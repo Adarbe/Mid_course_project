@@ -4,9 +4,7 @@ midd.tfplanterraform.tfstate.backup
 .DS_Store
 mid.tfplan
 midd.tfplan
-<<<<<<< HEAD
-=======
 terraform.tfstate.backup
 .terraform/
 terraform.tfstate
->>>>>>> add ignore file
+
