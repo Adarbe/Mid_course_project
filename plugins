@@ -1,0 +1,14 @@
+git-server: 1.9
+blueocean: 1.22.0
+greenballs: 1.15
+pipeline: 2.12
+github: 2.5.8
+ssh-slaves: 1.31.0
+git: 4.1.1
+github: 1.29.5
+git-client: 3.1.1
+SSH Slaves: 1.31.0
+Build Monitor View: 1.12
+Kubernetes: 1.23.2
+Kubernetes CLI: 1.8.0
+SSH Build Agents: 1.31.1
