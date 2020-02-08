@@ -34,14 +34,17 @@ resource "aws_instance" "jenkins_master" {
     inline = [
       "sudo apt-get update -y",
       "sudo apt install docker.io -y",
+      "sudo systemctl start docker",
+      "sudo systemctl enable docker",
+      "sudo usermod -aG docker ubuntu",
       "mkdir -p ${local.jenkins_home}",
       "sudo chown -R 1000:1000 ${local.jenkins_home}",
     ]
   }
   provisioner "remote-exec" {
     inline = [
-      "sudo docker run -d -p 8080:8080 -p 50000:50000 -v ${local.jenkins_home_mount} --env ${local.java_opts} jenkins/jenkins"
-    ]
+      "sudo docker run -d -p 8080:8080 -p 50000:50000 -v ${local.jenkins_home_mount} -v ${local.docker_sock_mount} --env ${local.java_opts} adarbe/jenkins:latest"
+   ]
   }
 }
 
@@ -72,6 +75,9 @@ resource "aws_instance" "jenkins_slave" {
             sudo yum update -y
             sudo yum install java-1.8.0 -y
             sudo alternatives --install /usr/bin/java java /usr/java/latest/bin/java 1 -y
+            sudo yum install docker git -y
+            sudo service docker start
+            sudo usermod -aG docker ec2-user
             sudo chown -R jenkins:jenkins /var/lib/jenkins/
 
             sudo yum install epel-release -y
