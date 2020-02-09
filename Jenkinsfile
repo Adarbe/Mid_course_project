@@ -14,7 +14,7 @@ node {
           }
         }
       stage('Apply Kubernetes files') {
-	      withAWS(region: 'us-east-1', credentials:'IDofAwsCredentials' ) {              	
+	      withAWS(region: 'us-east-1', credentials: "aws-credentials" ) {              	
 		    sh """
 	        aws eks update-kubeconfig --name opsSchool-eks-pCaGMHQx
 	        kubectl apply -f app.yml
