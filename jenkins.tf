@@ -2,8 +2,10 @@ locals {
   jenkins_default_name = "jenkins"
   jenkins_home = "/home/ubuntu/jenkins_home"
   jenkins_home_mount = "${local.jenkins_home}:/var/jenkins_home"
+  docker_sock_mount = "/var/run/docker.sock:/var/run/docker.sock"
   java_opts = "JAVA_OPTS='-Djenkins.install.runSetupWizard=false'"
   jenkins_master_url = "http://${aws_instance.jenkins_master.public_ip}:8080"
+
 }
 
 
@@ -27,9 +29,6 @@ resource "aws_instance" "jenkins_master" {
     user = "ubuntu"
     private_key = file("jenkins_ec2_key")
   }
-  user_data = "${file("install_jenkins.sh")}"
-
-  
   provisioner "remote-exec" {
     inline = [
       "sudo apt-get update -y",
@@ -43,7 +42,7 @@ resource "aws_instance" "jenkins_master" {
   }
   provisioner "remote-exec" {
     inline = [
-      "sudo docker run -d -p 8080:8080 -p 50000:50000 -v ${local.jenkins_home_mount} -v ${local.docker_sock_mount} --env ${local.java_opts} adarbe/jenkins:latest"
+      "sudo docker run -d -p 8080:8080 -p 50000:50000 -v ${local.jenkins_home_mount} -v ${local.docker_sock_mount} --env ${local.java_opts} jenkins/jenkins"
    ]
   }
 }

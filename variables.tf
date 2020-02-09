@@ -11,7 +11,7 @@ variable "jenkins_master_port" {
 }
 
 variable "plugins" {
-  type        = "list"
+  type        = list(string)
   description = "A list of Jenkins plugins to install, use short names."
   default     = ["git", "pipeline", "SSH Slaves", "Build Monitor View","GreenBalls", "Blue Ocean", "Slack Notifications", "GitHub Plugin", "Kubernetes"]
 }
