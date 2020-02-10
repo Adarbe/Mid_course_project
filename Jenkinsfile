@@ -16,7 +16,7 @@ node {
       stage('Apply Kubernetes files') {
 	      withAWS(region: 'us-east-1', credentials: "jenkins" ) {              	
 		    sh """
-	        aws eks update-kubeconfig --name opsSchool-eks-pCaGMHQx
+	        aws eks update-kubeconfig --name opsSchool-eks-png1TYK2
 	        kubectl apply -f app.yml
 	        """				
     	      }
