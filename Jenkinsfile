@@ -15,9 +15,8 @@ node {
           }
         }
       stage('Apply Kubernetes files') {
-	      withAWS(region: 'us-east-1', credentials: "jenkins" ) {              	
+	      withAWS(region: 'us-east-1', credentials: "adab" ) {              	
 		    sh """
-          aws eks get-token --cluster-name opsSchool-eks-png1TYK2
 	        aws eks update-kubeconfig --name opsSchool-eks-png1TYK2
 	        kubectl apply -f app.yml
 	        """				
